@@ -27,6 +27,9 @@ function calculate(firstNumber, secondNumber, operator) {
     }
 }
 
+let display = 0;
+
+
 let result = calculate(6, 3, '+');
 console.log(result);
 
