@@ -91,5 +91,10 @@ function calculate(firstNumber, secondNumber, operator) {
     }
 }
 
+equalsButton.addEventListener('click', () => {
+    let secondNumber = parseFloat(display.textContent);
+    let result = calculate(firstNumber, secondNumber, operator);
+    updateDisplay(result);
+})
 
 
