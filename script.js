@@ -17,6 +17,36 @@ function divide(a, b) {
     return a / b;
 }
 
+const display = document.getElementById('calculator-display');
+const digitButtons = document.querySelectorAll('.digit');
+const addButton = document.getElementById('add');
+const subtractButton = document.getElementById('subtract');
+const divideButton = document.getElementById('divide');
+const multiplyButton = document.getElementById('multiply');
+const clearButton = document.getElementById('clear');
+const equalsButton = document.getElementById('equals');
+const decimalButton = document.getElementById('decimal');
+
+function updateDisplay(value) {
+    display.textContent = value;
+}
+
+digitButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        if (display.textContent === '0') {
+            updateDisplay(button.textContent);
+        } else {
+            updateDisplay(display.textContent + button.textContent);
+        }
+    });
+});
+
+
+
+clearButton.addEventListener('click', () => {
+    updateDisplay('0');
+});
+
 let firstNumber = 0;
 let secondNumber = 0;
 let operator = '+';
@@ -27,9 +57,10 @@ function calculate(firstNumber, secondNumber, operator) {
     }
 }
 
-let display = 0;
 
 
-let result = calculate(6, 3, '+');
-console.log(result);
+
+
+//let result = calculate(6, 3, '+');
+//console.log(result);
 
