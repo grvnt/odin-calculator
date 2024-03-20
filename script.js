@@ -41,6 +41,27 @@ digitButtons.forEach(button => {
     });
 });
 
+addButton.addEventListener('click', () => {
+    firstNumber = parseFloat(display.textContent);
+    operator = '+';
+    display.textContent = '';
+});
+subtractButton.addEventListener('click', () => {
+    firstNumber = parseFloat(display.textContent);
+    operator = '-';
+    display.textContent = '';
+});
+multiplyButton.addEventListener('click', () => {
+    firstNumber = parseFloat(display.textContent);
+    operator = '*';
+    display.textContent = '';
+});
+divideButton.addEventListener('click', () => {
+    firstNumber = parseFloat(display.textContent);
+    operator = '/';
+    display.textContent = '';
+});
+
 
 
 clearButton.addEventListener('click', () => {
