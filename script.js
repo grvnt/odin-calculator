@@ -73,15 +73,23 @@ let secondNumber = 0;
 let operator = '+';
 
 function calculate(firstNumber, secondNumber, operator) {
-    if (operator === '+') {
-        return add(firstNumber, secondNumber);
+    switch (operator) {
+        case '+':
+            return add(firstNumber, secondNumber);
+        case '-':
+            return subtract(firstNumber, secondNumber);
+        case '*':
+            return multiply(firstNumber, secondNumber);
+        case '/':
+            if (secondNumber === 0) {
+                return 'Error';
+            } else {
+                return divide(firstNumber, secondNumber);
+            }
+        default:
+            return 0;
     }
 }
 
 
-
-
-
-//let result = calculate(6, 3, '+');
-//console.log(result);
 
