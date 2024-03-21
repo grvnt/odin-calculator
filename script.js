@@ -1,22 +1,3 @@
-function add(a, b) {
-    return a + b;
-}
-
-function subtract(a, b) {
-    return a - b;
-}
-
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    if(b === 0) {
-        return
-    }
-    return a / b;
-}
-
 const display = document.getElementById('calculator-display');
 const digitButtons = document.querySelectorAll('.digit');
 const addButton = document.getElementById('add');
@@ -27,11 +8,10 @@ const clearButton = document.getElementById('clear');
 const equalsButton = document.getElementById('equals');
 const decimalButton = document.getElementById('decimal');
 
+let firstNumber = 0;
+let secondNumber = 0;
+let operator = null;
 let isNewNumber = true;
-
-function updateDisplay(value) {
-    display.textContent = value;
-}
 
 digitButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -45,10 +25,19 @@ digitButtons.forEach(button => {
 });
 
 addButton.addEventListener('click', () => {
-    firstNumber = parseFloat(display.textContent);
+    if (operator && !isNewNumber) {
+        let secondNumber = parseFloat(display.textContent);
+        let result = calculate(firstNumber, secondNumber, operator);
+        updateDisplay(result);
+        firstNumber = result;
+    } else {
+        firstNumber = parseFloat(display.textContent);
+    }
+
     operator = '+';
     isNewNumber = true;
 });
+
 subtractButton.addEventListener('click', () => {
     firstNumber = parseFloat(display.textContent);
     operator = '-';
@@ -70,14 +59,41 @@ equalsButton.addEventListener('click', () => {
     let secondNumber = parseFloat(display.textContent);
     let result = calculate(firstNumber, secondNumber, operator);
     updateDisplay(result);
-    firstNumber = 0;
+    firstNumber = result;
     operator = null;
     isNewNumber = true;
 })
 
 clearButton.addEventListener('click', () => {
     updateDisplay('0');
+    firstNumber = 0;
+    secondNumber = 0;
+    operator = null;
+    isNewNumber = true;
 });
+
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    if(b === 0) {
+        return
+    }
+    return a / b;
+}
+
+function updateDisplay(value) {
+    display.textContent = value;
+}
 
 
 function calculate(firstNumber, secondNumber, operator) {
