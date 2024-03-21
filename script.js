@@ -27,16 +27,19 @@ const clearButton = document.getElementById('clear');
 const equalsButton = document.getElementById('equals');
 const decimalButton = document.getElementById('decimal');
 
+let isNewNumber = true;
+
 function updateDisplay(value) {
     display.textContent = value;
 }
 
 digitButtons.forEach(button => {
     button.addEventListener('click', () => {
-        if (display.textContent === '0') {
+        if (isNewNumber) {
             updateDisplay(button.textContent);
+            isNewNumber = false;
         } else {
-            updateDisplay(display.textContent + button.textContent);
+            updateDisplay(display.textContent += button.textContent);
         }
     });
 });
@@ -44,33 +47,38 @@ digitButtons.forEach(button => {
 addButton.addEventListener('click', () => {
     firstNumber = parseFloat(display.textContent);
     operator = '+';
-    display.textContent = '';
+    isNewNumber = true;
 });
 subtractButton.addEventListener('click', () => {
     firstNumber = parseFloat(display.textContent);
     operator = '-';
-    display.textContent = '';
+    isNewNumber = true;
 });
 multiplyButton.addEventListener('click', () => {
     firstNumber = parseFloat(display.textContent);
     operator = '*';
-    display.textContent = '';
+    isNewNumber = true;
 });
+
 divideButton.addEventListener('click', () => {
     firstNumber = parseFloat(display.textContent);
     operator = '/';
-    display.textContent = '';
+    isNewNumber = true;
 });
 
-
+equalsButton.addEventListener('click', () => {
+    let secondNumber = parseFloat(display.textContent);
+    let result = calculate(firstNumber, secondNumber, operator);
+    updateDisplay(result);
+    firstNumber = 0;
+    operator = null;
+    isNewNumber = true;
+})
 
 clearButton.addEventListener('click', () => {
     updateDisplay('0');
 });
 
-let firstNumber = 0;
-let secondNumber = 0;
-let operator = '+';
 
 function calculate(firstNumber, secondNumber, operator) {
     switch (operator) {
@@ -91,10 +99,6 @@ function calculate(firstNumber, secondNumber, operator) {
     }
 }
 
-equalsButton.addEventListener('click', () => {
-    let secondNumber = parseFloat(display.textContent);
-    let result = calculate(firstNumber, secondNumber, operator);
-    updateDisplay(result);
-})
+
 
 
