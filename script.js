@@ -100,25 +100,15 @@ function calculate(firstNumber, secondNumber, operator) {
 }
 
 function handleOperation(selectedOperator) {
-    // If an operator was already set and the user has entered a new number, calculate the result.
     if (operator && !isNewNumber) {
-        secondNumber = parseFloat(display.textContent); // Prepare the second operand for calculation.
-        let result = calculate(firstNumber, secondNumber, operator); // Perform the calculation.
-        updateDisplay(result); // Display the result.
-        firstNumber = result; // Update firstNumber for potential consecutive operations.
+        secondNumber = parseFloat(display.textContent); 
+        let result = calculate(firstNumber, secondNumber, operator); 
+        updateDisplay(result); 
+        firstNumber = result; 
     } else if (!operator || isNewNumber) {
-        // If no operation is ongoing, simply use the displayed number as the first operand.
         firstNumber = parseFloat(display.textContent);
     }
-
-    // Setup for the next operation.
-    operator = selectedOperator; // Update the operator.
-    isNewNumber = true; // Ready to accept a new number.
-    lastActionWasEquals = false; // Reset this flag, as a new operation is being set up.
+    operator = selectedOperator; 
+    isNewNumber = true; 
+    lastActionWasEquals = false; 
 }
-
-
-
-
-
-
