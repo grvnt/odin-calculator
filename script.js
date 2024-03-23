@@ -13,58 +13,34 @@ let secondNumber = 0;
 let operator = null;
 let isNewNumber = true;
 
+addButton.addEventListener('click', () => handleOperation('+'));
+subtractButton.addEventListener('click', () => handleOperation('-'));
+multiplyButton.addEventListener('click', () => handleOperation('*'));
+divideButton.addEventListener('click', () => handleOperation('/'));
+
 digitButtons.forEach(button => {
     button.addEventListener('click', () => {
         if (isNewNumber) {
-            updateDisplay(button.textContent);
+            display.textContent = button.textContent;
             isNewNumber = false;
         } else {
-            updateDisplay(display.textContent += button.textContent);
+            display.textContent += button.textContent;
         }
-    });
-});
-
-addButton.addEventListener('click', () => {
-    if (operator && !isNewNumber) {
-        let secondNumber = parseFloat(display.textContent);
-        let result = calculate(firstNumber, secondNumber, operator);
-        updateDisplay(result);
-        firstNumber = result;
-    } else {
-        firstNumber = parseFloat(display.textContent);
-    }
-
-    operator = '+';
-    isNewNumber = true;
-});
-
-subtractButton.addEventListener('click', () => {
-    firstNumber = parseFloat(display.textContent);
-    operator = '-';
-    isNewNumber = true;
-});
-multiplyButton.addEventListener('click', () => {
-    firstNumber = parseFloat(display.textContent);
-    operator = '*';
-    isNewNumber = true;
-});
-
-divideButton.addEventListener('click', () => {
-    firstNumber = parseFloat(display.textContent);
-    operator = '/';
-    isNewNumber = true;
+    }) 
 });
 
 equalsButton.addEventListener('click', () => {
-    let secondNumber = parseFloat(display.textContent);
+    if (!lastActionWasEquals) {
+        secondNumber = parseFloat(display.textContent); // Only update secondNumber on first press
+    }
     let result = calculate(firstNumber, secondNumber, operator);
     updateDisplay(result);
-    firstNumber = result;
-    operator = null;
-    isNewNumber = true;
-})
+    firstNumber = result; // Prepare for the next operation
+    lastActionWasEquals = true; // Block further calculations without new input
+});
 
 clearButton.addEventListener('click', () => {
+    lastActionWasEquals = false;
     updateDisplay('0');
     firstNumber = 0;
     secondNumber = 0;
@@ -85,10 +61,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    if(b === 0) {
-        return
-    }
-    return a / b;
+    return b === 0 ? 'Error' : a / b;
 }
 
 function updateDisplay(value) {
@@ -113,6 +86,21 @@ function calculate(firstNumber, secondNumber, operator) {
         default:
             return 0;
     }
+}
+
+function handleOperation(selectedOperator) {
+    if (!isNewNumber || operator) {
+        secondNumber = parseFloat(display.textContent);
+        if (operator) {
+            let result = calculate(firstNumber, secondNumber, operator);
+            updateDisplay(result);
+            firstNumber = result;
+        } else {
+            firstNumber = secondNumber;
+        }
+    }
+    operator = selectedOperator;
+    isNewNumber = true;
 }
 
 
