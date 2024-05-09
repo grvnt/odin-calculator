@@ -27,7 +27,7 @@ digitButtons.forEach(button => {
         } else {
             display.textContent += button.textContent;
         }
-    }) 
+    })
 });
 
 equalsButton.addEventListener('click', () => {
@@ -100,15 +100,16 @@ function calculate(firstNumber, secondNumber, operator) {
 }
 
 function handleOperation(selectedOperator) {
+
     if (operator && !isNewNumber) {
-        secondNumber = parseFloat(display.textContent); 
-        let result = calculate(firstNumber, secondNumber, operator); 
-        updateDisplay(result); 
-        firstNumber = result; 
+        secondNumber = parseFloat(display.textContent);
+        let result = calculate(firstNumber, secondNumber, operator);
+        updateDisplay(result);
+        firstNumber = result;
     } else if (!operator || isNewNumber) {
         firstNumber = parseFloat(display.textContent);
     }
-    operator = selectedOperator; 
-    isNewNumber = true; 
-    lastActionWasEquals = false; 
+    operator = selectedOperator;
+    isNewNumber = true;
+    lastActionWasEquals = false;
 }
